@@ -60,7 +60,6 @@
      width: 88px;
    }
 
-   /* ===== Reusable code - Here ===== */
    .sidebar li {
      height: 50px;
      list-style: none;
@@ -101,6 +100,7 @@
    .sidebar.close .text {
      opacity: 0;
    }
+
 
    /* =========================== */
 
@@ -303,3 +303,5 @@
    body.dark .home .text {
      color: var(--text-color);
    }
+
+   
