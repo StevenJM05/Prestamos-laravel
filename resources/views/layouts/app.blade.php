@@ -40,35 +40,35 @@
           </li>
 
           <li class="nav-link">
-            <a href="escuelas">
+            <a href="{{route('escuelas.index')}}">
                 <i class="fa-solid fa-school icon"></i>
               <span class="text nav-text">Escuela</span>
             </a>
           </li>
 
           <li class="nav-link">
-            <a href="#">
+            <a href="{{route('carreras.index')}}">
                 <i class="fa-solid fa-graduation-cap icon"></i>
               <span class="text nav-text">Carrera</span>
             </a>
           </li>
 
           <li class="nav-link">
-            <a href="#">
+            <a href="{{route('alumnos.index')}}">
                 <i class="fa-regular fa-id-card icon"></i>
               <span class="text nav-text">Alumnos</span>
             </a>
           </li>
 
           <li class="nav-link">
-            <a href="#">
+            <a href="{{route('libros.index')}}">
                 <i class="fa-solid fa-book icon"></i>
               <span class="text nav-text">Libros</span>
             </a>
           </li>
 
           <li class="nav-link">
-            <a href="#">
+            <a href="{{route('prestamo.index')}}">
                 <i class="fa-solid fa-list-ol icon"></i>
               <span class="text nav-text">Prestamos</span>
             </a>

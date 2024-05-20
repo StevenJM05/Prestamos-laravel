@@ -9,7 +9,7 @@ class EscuelaController extends Controller
 {
     public function index()
     {
-        $escuelas = Escuela::paginate(7); 
+        $escuelas = Escuela::paginate(5); 
         return view('escuela.escuela', compact('escuelas'));
     }
     public function create()
@@ -29,5 +29,10 @@ class EscuelaController extends Controller
         ]);
 
         return redirect()->route('escuelas.index')->with('success', 'Escuela agregada correctamente.');
+    }
+
+    public function edit(Request $request, int $id){
+        $escuela = Escuela::find($id);
+        return view('escuela.escuelaUpdate')->with(['escuela'=>$escuela]);
     }
 }
