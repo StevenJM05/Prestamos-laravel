@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('prestamos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('alumno_id')->constrained()->onDelete('cascade');
-            $table->foreignId('libro_id')->constrained()->onDelete('cascade');
+            $table->foreignId('alumno_id')->references('id')->on('alumnos')->onDelete('cascade');
+            $table->foreignId('libro_id')->references('id')->on('libros')->onDelete('cascade');
             $table->date('fecha_prestamo');
             $table->date('fecha_devolucion');
             $table->boolean('estado')->default(1); 

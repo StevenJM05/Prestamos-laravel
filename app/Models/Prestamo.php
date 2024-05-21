@@ -15,11 +15,12 @@ class Prestamo extends Model
         'estado',
     ];
 
-    public function alumnos(){
-        return $this->belongsTo(Alumno::class);
+    public function alumno()
+    {
+        return $this->belongsTo(Alumno::class, 'alumno_id');
     }
 
-    public function libros(){
-        return $this->belongsTo(Libro::class);
+    public function libro(){
+        return $this->belongsTo(Libro::class, 'libro_id');
     }
 }

@@ -21,13 +21,7 @@
                     <input type="hidden" name="libro_id" id="libro_id">
                     <div id="libro-results" class="search-results"></div>
                 </div>
-                <div class="form-group">
-                    <label for="estado">Estado:</label>
-                    <select name="estado" class="form-control" required>
-                        <option value="1">Activo</option>
-                        <option value="0">Finalizado</option>
-                    </select>
-                </div>
+               
                 <button type="submit" class="btn btn-outline-success mt-3">Guardar Préstamo</button>
             </form>
         </div>

@@ -29,7 +29,7 @@
                             <td>{{ $prestamo->libro->titulo }}</td>
                             <td>{{ $prestamo->fecha_prestamo }}</td>
                             <td>{{ $prestamo->fecha_devolucion }}</td>
-                            <td>{{ $prestamo->estado ? 'Prestado' : 'Devuelto' }}</td>
+                            <td>{{ $prestamo->estado ? 'Activo' : 'Finalizado' }}</td>
                             <td>
                                 <a href="{{ route('prestamos.edit', $prestamo->id) }}" class="btn btn-outline-warning">Actualizar</a>
                                 <form action="{{ route('prestamos.destroy', $prestamo->id) }}" method="POST" class="d-inline">
@@ -37,6 +37,7 @@
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-outline-danger">Eliminar</button>
                                 </form>
+                                
                             </td>
                         </tr>
                     @endforeach

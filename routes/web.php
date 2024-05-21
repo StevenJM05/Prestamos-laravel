@@ -45,6 +45,7 @@ Route::get('/prestamos/create', [PrestamoController::class, 'create'])->name('pr
 Route::post('/prestamos', [PrestamoController::class, 'store'])->name('prestamos.store');
 Route::get('/prestamos/edit/{id}', [PrestamoController::class, 'edit'])->name('prestamos.edit');
 Route::put('/prestamos/{id}', [PrestamoController::class, 'update'])->name('prestamos.update');
+Route::delete('/prestamos/{id}', [PrestamoController::class, 'destroy'])->name('prestamos.destroy');
 
 //busquedas
 Route::get('search-students', [AlumnoController::class, 'search'])->name('search-students');

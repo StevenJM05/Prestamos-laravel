@@ -25,7 +25,7 @@ class PrestamoController extends Controller
         $request->validate([
             'alumno_id' => 'required|exists:alumnos,id',
             'libro_id' => 'required|exists:libros,id',
-            'estado' => 'required|boolean',
+            
         ]);
 
         // Obtener la fecha actual
@@ -40,7 +40,7 @@ class PrestamoController extends Controller
         $prestamo->libro_id = $request->libro_id;
         $prestamo->fecha_prestamo = $fecha_prestamo;
         $prestamo->fecha_devolucion = $fecha_devolucion;
-        $prestamo->estado = $request->estado;
+        $prestamo->estado = 1;
         $prestamo->save();
 
         return redirect()->route('prestamo.index')->with('success', 'Préstamo creado exitosamente');
@@ -66,5 +66,11 @@ class PrestamoController extends Controller
         $prestamo->update($request->all());
 
         return redirect()->route('prestamos.index')->with('success', 'Préstamo actualizado exitosamente');
+    }
+
+    public function destroy($id){
+        $prestamo = Prestamo::findOrFail($id);
+        $prestamo->delete();
+        return redirect()->route('prestamo.index')->with('success', 'Prestamo eliminado exitosamente');
     }
 }
