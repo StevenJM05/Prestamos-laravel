@@ -46,6 +46,6 @@ Route::post('/prestamos', [PrestamoController::class, 'store'])->name('prestamos
 Route::get('/prestamos/edit/{id}', [PrestamoController::class, 'edit'])->name('prestamos.edit');
 Route::put('/prestamos/{id}', [PrestamoController::class, 'update'])->name('prestamos.update');
 
-// Búsqueda 
-Route::get('/alumnos/search', [AlumnoController::class, 'search'])->name('alumnos.search');
-Route::get('/libros/search', [LibroController::class, 'search'])->name('libros.search');
+//busquedas
+Route::get('search-students', [AlumnoController::class, 'search'])->name('search-students');
+Route::get('search-books', [LibroController::class, 'search'])->name('search-books');

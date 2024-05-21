@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -44,7 +45,7 @@ class AlumnoController extends Controller
 
     public function update(Request $request, $id)
     {
-        
+
         $request->validate([
             'id' => 'required|exists:carreras,id',
             'nombres' => 'required',
@@ -52,7 +53,7 @@ class AlumnoController extends Controller
             'direccion' => 'required',
             'telefono' => 'required',
         ]);
-        
+
         $alumno = Alumno::findOrFail($id);
         $alumno->update($request->all());
 
@@ -69,15 +70,12 @@ class AlumnoController extends Controller
 
     public function search(Request $request)
     {
-        $query = $request->input('query');
-        Log::info('Buscar alumnos con query: ' . $query); 
+        $query = $request->get('q');
+        $students = Alumno::where('nombres', 'like', "%{$query}%")
+            ->orWhere('apellidos', 'like', "{$query}%")
+            ->take(10)
+            ->get(['id', 'nombres', 'apellidos']);  
 
-        $alumnos = Alumno::where('nombres', 'LIKE', "%{$query}%")
-                        ->orWhere('apellidos', 'LIKE', "%{$query}%")
-                        ->paginate(10);
-
-        Log::info('Resultados de alumnos: ' . $alumnos); 
-
-        return response()->json($alumnos);
+        return response()->json(['data' => $students]);
     }
 }

@@ -65,17 +65,12 @@ class LibroController extends Controller
     }
 
     public function search(Request $request)
-{
-    $query = $request->input('query');
-    Log::info('Buscar libros con query: ' . $query); // Añadir este log
+    {
+        $query = $request->get('q');
+        $books = Libro::where('titulo', 'like', "{$query}%")
+            ->take(10)
+            ->get(['id', 'titulo']);
 
-    $libros = Libro::where('titulo', 'LIKE', "%{$query}%")
-                   ->paginate(10);
-
-    Log::info('Resultados de libros: ' . $libros); // Añadir este log
-
-    return response()->json($libros);
+        return response()->json(['data' => $books]);
+    }
 }
-
-}
-

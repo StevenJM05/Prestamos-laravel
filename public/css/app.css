@@ -303,5 +303,20 @@
    body.dark .home .text {
      color: var(--text-color);
    }
-
+   
+   .search-results {
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ccc;
+    z-index: 1000;
+    max-height: 200px;
+    overflow-y: auto;
+}
+.search-result-item {
+    padding: 8px;
+    cursor: pointer;
+}
+.search-result-item:hover {
+    background-color: #f0f0f0;
+}
    

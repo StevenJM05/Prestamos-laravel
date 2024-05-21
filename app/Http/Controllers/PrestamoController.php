@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use App\Models\Prestamo;
 use App\Models\Alumno;
 use App\Models\Libro;
+use Carbon\Carbon;
 
 class PrestamoController extends Controller
 {
@@ -19,19 +20,28 @@ class PrestamoController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $request->validate([
-            'alumno_id' => 'required|exists:alumnos,id',
-            'libro_id' => 'required|exists:libros,id',
-            'fecha_prestamo' => 'required|date',
-            'fecha_devolucion' => 'required|date',
-            'estado' => 'required|boolean',
-        ]);
+{
+    $request->validate([
+        'alumno_id' => 'required|exists:alumnos,id',
+        'libro_id' => 'required|exists:libros,id',
+        'estado' => 'required|boolean',
+    ]);
+    //Obtener la fecha actual se usa carbon
+    $fecha_prestamo = Carbon::now();
 
-        Prestamo::create($request->all());
+    // Calcular la fecha de devolución con 3 días hábiles
+    $fecha_devolucion = Carbon::now()->addWeekdays(3);
 
-        return redirect()->route('prestamos.index')->with('success', 'Préstamo creado exitosamente');
-    }
+    $prestamo = new Prestamo();
+    $prestamo->alumno_id = $request->alumno_id;
+    $prestamo->libro_id = $request->libro_id;
+    $prestamo->fecha_prestamo = $fecha_prestamo;
+    $prestamo->fecha_devolucion = $fecha_devolucion;
+    $prestamo->estado = $request->estado;
+    $prestamo->save();
+
+    return redirect()->route('prestamos.index')->with('success', 'Préstamo creado exitosamente');
+}
 
     public function edit($id)
     {
