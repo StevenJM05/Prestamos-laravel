@@ -9,6 +9,19 @@
             <a href="{{ route('prestamos.create') }}" class="btn btn-outline-success text-white">Agregar Préstamo</a>
         </div>
         <div class="card-body">
+            <!-- Formulario de búsqueda por estado -->
+            <form action="{{ route('prestamo.index') }}" method="GET" class="mb-3">
+                <div class="form-group">
+                    <label for="estado">Filtrar por Estado:</label>
+                    <select name="estado" id="estado" class="form-control">
+                        <option value="">Mostrar Todos</option>
+                        <option value="activo" {{ request('estado') == 'activo' ? 'selected' : '' }}>Activo</option>
+                        <option value="finalizado" {{ request('estado') == 'finalizado' ? 'selected' : '' }}>Finalizado</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary mt-3">Buscar</button>
+            </form>
+            
             <table class="table">
                 <thead>
                     <tr>
@@ -31,13 +44,17 @@
                             <td>{{ $prestamo->fecha_devolucion }}</td>
                             <td>{{ $prestamo->estado ? 'Activo' : 'Finalizado' }}</td>
                             <td>
-                                <a href="{{ route('prestamos.edit', $prestamo->id) }}" class="btn btn-outline-warning">Actualizar</a>
+                                <a href="{{ route('prestamos.edit', $prestamo->id) }}" class="btn btn-outline-warning">Cambiar fecha devolución</a>
                                 <form action="{{ route('prestamos.destroy', $prestamo->id) }}" method="POST" class="d-inline">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-outline-danger">Eliminar</button>
                                 </form>
-                                
+                                <form action="{{route('prestamos.estado', $prestamo->id)}}" method="POST" class="d-inline">
+                                    @csrf
+                                    @method('PUT')
+                                    <button type="submit" class="btn btn-outline-success">{{ $prestamo->estado ? 'Finalizar' : 'Activar' }}</button>
+                                </form>  
                             </td>
                         </tr>
                     @endforeach

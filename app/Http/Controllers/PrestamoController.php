@@ -4,17 +4,31 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Prestamo;
-use App\Models\Alumno;
-use App\Models\Libro;
 use Carbon\Carbon;
 
 class PrestamoController extends Controller
 {
-    public function index()
-    {
-        $prestamos = Prestamo::with(['alumno', 'libro'])->paginate(10);
-        return view('prestamo.prestamo', compact('prestamos'));
+    public function index(Request $request)
+{
+    $query = Prestamo::query();
+
+    // Verificar si se ha seleccionado un estado para filtrar
+    if ($request->has('estado')) {
+        $estado = $request->estado;
+        // Filtrar por estado
+        if ($estado == 'activo') {
+            $query->where('estado', 1);
+        } elseif ($estado == 'finalizado') {
+            $query->where('estado', 0);
+        }
     }
+
+    // Obtener los préstamos paginados
+    $prestamos = $query->with(['alumno', 'libro'])->paginate(10);
+
+    return view('prestamo.prestamo', compact('prestamos'));
+}
+
     public function create()
     {
         return view('prestamo.create');
@@ -25,7 +39,7 @@ class PrestamoController extends Controller
         $request->validate([
             'alumno_id' => 'required|exists:alumnos,id',
             'libro_id' => 'required|exists:libros,id',
-            
+
         ]);
 
         // Obtener la fecha actual
@@ -55,20 +69,31 @@ class PrestamoController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'alumno_id' => 'required|exists:alumnos,id',
-            'libro_id' => 'required|exists:libros,id',
-            'fecha_prestamo' => 'required|date',
             'fecha_devolucion' => 'required|date',
-            'estado' => 'required|boolean',
         ]);
 
         $prestamo = Prestamo::findOrFail($id);
-        $prestamo->update($request->all());
+        $prestamo->fecha_devolucion = $request->fecha_devolucion;
+        $prestamo->save();
 
-        return redirect()->route('prestamos.index')->with('success', 'Préstamo actualizado exitosamente');
+        return redirect()->route('prestamo.index')->with('success', 'Fecha de devolución actualizada exitosamente');
     }
 
-    public function destroy($id){
+    public function estado($id){
+        $prestamo = Prestamo::findOrFail($id);
+        if($prestamo->estado==0){
+            $prestamo->estado = 1;
+        }else{
+            $prestamo->estado = 0;
+        }
+        
+        $prestamo->save();
+
+        return redirect()->route('prestamo.index')->with('success', 'Estado actualizado exitosamente');
+    }
+    
+    public function destroy($id)
+    {
         $prestamo = Prestamo::findOrFail($id);
         $prestamo->delete();
         return redirect()->route('prestamo.index')->with('success', 'Prestamo eliminado exitosamente');
