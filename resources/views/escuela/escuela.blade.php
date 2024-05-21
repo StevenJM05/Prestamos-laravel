@@ -25,7 +25,11 @@
                                 <td>{{ $escuela->nombre }}</td>
                                 <td>{{ $escuela->director }}</td>
                                 <td>
-                                    <button class="btn btn-outline-danger">Eliminar</button>
+                                    <form action="{{ route('escuelas.destroy', $escuela->id) }}" method="POST" style="display:inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-outline-danger">Eliminar</button>
+                                    </form>
                                     <a class="btn btn-outline-warning" href="{{route('escuelas.edit', $escuela->id)}}">Actualizar</a>
                                 </td>
                             </tr>

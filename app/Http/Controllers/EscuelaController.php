@@ -9,30 +9,51 @@ class EscuelaController extends Controller
 {
     public function index()
     {
-        $escuelas = Escuela::paginate(5); 
+        $escuelas = Escuela::paginate(10);
         return view('escuela.escuela', compact('escuelas'));
     }
+
     public function create()
     {
         return view('escuela.escuelaAgregar');
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $request->validate([
-            'nombre' => 'required',
-            'director' => 'required'
+            'nombre' => 'required|string|max:255',
+            'director' => 'required|string|max:255',
         ]);
 
-        Escuela::create([
-            'nombre' => $request->nombre,
-            'director' => $request->director,
-        ]);
+        Escuela::create($request->all());
 
-        return redirect()->route('escuelas.index')->with('success', 'Escuela agregada correctamente.');
+        return redirect()->route('escuelas.index')->with('success', 'Escuela creada exitosamente');
     }
 
-    public function edit(Request $request, int $id){
-        $escuela = Escuela::find($id);
-        return view('escuela.escuelaUpdate')->with(['escuela'=>$escuela]);
+    public function edit($id)
+    {
+        $escuela = Escuela::findOrFail($id);
+        return view('escuela.escuelaUpdate', compact('escuela'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+            'director' => 'required|string|max:255',
+        ]);
+
+        $escuela = Escuela::findOrFail($id);
+        $escuela->update($request->all());
+
+        return redirect()->route('escuelas.index')->with('success', 'Escuela actualizada exitosamente');
+    }
+
+    public function destroy($id)
+    {
+        $escuela = Escuela::findOrFail($id);
+        $escuela->delete();
+
+        return redirect()->route('escuelas.index')->with('success', 'Escuela eliminada exitosamente');
     }
 }

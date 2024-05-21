@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Alumno;
+use Illuminate\Support\Facades\Log;
 use App\Models\Carrera;
 
 class AlumnoController extends Controller
@@ -64,5 +65,19 @@ class AlumnoController extends Controller
         $alumno->delete();
 
         return redirect()->route('alumnos.index')->with('success', 'Alumno eliminado exitosamente');
+    }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+        Log::info('Buscar alumnos con query: ' . $query); 
+
+        $alumnos = Alumno::where('nombres', 'LIKE', "%{$query}%")
+                        ->orWhere('apellidos', 'LIKE', "%{$query}%")
+                        ->paginate(10);
+
+        Log::info('Resultados de alumnos: ' . $alumnos); 
+
+        return response()->json($alumnos);
     }
 }

@@ -6,9 +6,14 @@
         <div class="card">
             <div class="card-header text-white" style="background-color: #683475">
                 <h1>Libros</h1>
-                <a href="#" class="btn btn-outline-success text-white">Agregar Libro</a>
+                <a href="{{ route('libros.create') }}" class="btn btn-outline-success text-white">Agregar Libro</a>
             </div>
             <div class="card-body">
+                @if(session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
                 <table class="table">
                     <thead>
                         <tr>
@@ -31,8 +36,8 @@
                                 <td>{{ $libro->fecha_edicion }}</td>
                                 <td>{{ $libro->ISBN }}</td>
                                 <td>
-                                    <a href="#" class="btn btn-outline-warning">Actualizar</a>
-                                    <form action="#" method="POST" style="display:inline;">
+                                    <a href="{{ route('libros.edit', $libro->id) }}" class="btn btn-outline-warning">Actualizar</a>
+                                    <form action="{{ route('libros.destroy', $libro->id) }}" method="POST" style="display:inline-block;">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-outline-danger">Eliminar</button>
@@ -42,8 +47,8 @@
                         @endforeach
                     </tbody>
                 </table>
+                {{ $libros->links() }} 
             </div>
         </div>
-        {{ $libros->links() }} 
     </div>
 @endsection

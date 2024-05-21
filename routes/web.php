@@ -6,7 +6,7 @@ use App\Http\Controllers\CarreraController;
 use App\Http\Controllers\PrestamoController;
 use App\Http\Controllers\LibroController;
 use App\Http\Controllers\AlumnoController;
-use App\Models\Carrera;
+
 
 Route::view('/','index')->name('index');
 
@@ -15,6 +15,8 @@ Route::get('/escuelas', [EscuelaController::class, 'index'])->name('escuelas.ind
 Route::get('/escuelas/create', [EscuelaController::class, 'create'])->name('escuelas.create');
 Route::post('/escuelas', [EscuelaController::class, 'store'])->name('escuelas.store');
 Route::get('/escuelas/edit/{id}',[EscuelaController::class, 'edit'])->name('escuelas.edit');
+Route::put('/escuelas/{id}',[EscuelaController::class, 'update'])->name('escuelas.update');
+Route::delete('/escuelas/{id}',[EscuelaController::class, 'destroy'])->name('escuelas.destroy');
 //Carrera
 Route::get('/carreras', [CarreraController::class, 'index'])->name('carreras.index');
 Route::get('/carreras/create', [CarreraController::class, 'create'])->name('carreras.create');
@@ -24,6 +26,11 @@ Route::put('/carreras/{id}', [CarreraController::class, 'update'])->name('carrer
 Route::delete('/carreras/{id}',[CarreraController::class, 'destroy'])->name('carreras.destroy');
 //Libros
 Route::get('/libros', [LibroController::class, 'index'])->name('libros.index');
+Route::get('/libros/create', [LibroController::class, 'create'])->name('libros.create');
+Route::post('/libros', [LibroController::class, 'store'])->name('libros.store');
+Route::get('/libros/{id}/edit', [LibroController::class, 'edit'])->name('libros.edit');
+Route::put('/libros/{id}', [LibroController::class, 'update'])->name('libros.update');
+Route::delete('/libros/{id}',[LibroController::class, 'destroy'])->name('libros.destroy');
 //Alumno
 Route::get('/alumnos', [AlumnoController::class, 'index'])->name('alumnos.index');
 Route::get('/alumnos/create', [AlumnoController::class, 'create'])->name('alumnos.create');
@@ -34,3 +41,11 @@ Route::delete('/alumnos/{id}', [AlumnoController::class, 'destroy'])->name('alum
 
 //Prestamo
 Route::get('/prestamos', [PrestamoController::class, 'index'])->name('prestamo.index');
+Route::get('/prestamos/create', [PrestamoController::class, 'create'])->name('prestamos.create');
+Route::post('/prestamos', [PrestamoController::class, 'store'])->name('prestamos.store');
+Route::get('/prestamos/edit/{id}', [PrestamoController::class, 'edit'])->name('prestamos.edit');
+Route::put('/prestamos/{id}', [PrestamoController::class, 'update'])->name('prestamos.update');
+
+// Búsqueda 
+Route::get('/alumnos/search', [AlumnoController::class, 'search'])->name('alumnos.search');
+Route::get('/libros/search', [LibroController::class, 'search'])->name('libros.search');
