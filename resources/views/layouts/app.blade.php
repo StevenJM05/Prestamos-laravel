@@ -33,7 +33,7 @@
       <div class="menu">
         <ul class="menu-links">
           <li class="nav-link">
-            <a href="#">
+            <a href="/">
                 <i class="fa-solid fa-house icon"></i>
               <span class="text nav-text">Inicio</span>
             </a>

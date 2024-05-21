@@ -9,7 +9,7 @@ class AlumnoController extends Controller
 {
     public function index()
     {
-        $alumnos = Alumno::paginate(10);
+        $alumnos = Alumno::with('carrera')->paginate(10);
         return view('alumno.alumno', compact('alumnos'));
     }
 
@@ -22,7 +22,7 @@ class AlumnoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'id_carrera' => 'required|exists:carreras,id_carrera',
+            'carrera_id' => 'required|exists:carreras,carrera_id',
             'nombres' => 'required',
             'apellidos' => 'required',
             'direccion' => 'required',
@@ -31,7 +31,7 @@ class AlumnoController extends Controller
 
         Alumno::create($request->all());
 
-        return redirect()->route('alumno.alumno')->with('success', 'Alumno creado exitosamente');
+        return redirect()->route('alumnos.index')->with('success', 'Alumno creado exitosamente');
     }
 
     public function edit($id)
@@ -43,18 +43,19 @@ class AlumnoController extends Controller
 
     public function update(Request $request, $id)
     {
+        
         $request->validate([
-            'carrera_id' => 'required|exists:carreras,id_carrera',
+            'id' => 'required|exists:carreras,id',
             'nombres' => 'required',
             'apellidos' => 'required',
             'direccion' => 'required',
             'telefono' => 'required',
         ]);
-
+        
         $alumno = Alumno::findOrFail($id);
         $alumno->update($request->all());
 
-        return redirect()->route('alumno.alumno')->with('success', 'Alumno actualizado exitosamente');
+        return redirect()->route('alumnos.index')->with('success', 'Alumno actualizado exitosamente');
     }
 
     public function destroy($id)
@@ -62,6 +63,6 @@ class AlumnoController extends Controller
         $alumno = Alumno::findOrFail($id);
         $alumno->delete();
 
-        return redirect()->route('alumno.alumno')->with('success', 'Alumno eliminado exitosamente');
+        return redirect()->route('alumnos.index')->with('success', 'Alumno eliminado exitosamente');
     }
 }

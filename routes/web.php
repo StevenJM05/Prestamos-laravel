@@ -6,6 +6,7 @@ use App\Http\Controllers\CarreraController;
 use App\Http\Controllers\PrestamoController;
 use App\Http\Controllers\LibroController;
 use App\Http\Controllers\AlumnoController;
+use App\Models\Carrera;
 
 Route::view('/','index')->name('index');
 
@@ -16,6 +17,11 @@ Route::post('/escuelas', [EscuelaController::class, 'store'])->name('escuelas.st
 Route::get('/escuelas/edit/{id}',[EscuelaController::class, 'edit'])->name('escuelas.edit');
 //Carrera
 Route::get('/carreras', [CarreraController::class, 'index'])->name('carreras.index');
+Route::get('/carreras/create', [CarreraController::class, 'create'])->name('carreras.create');
+Route::post('/carreras', [CarreraController::class, 'store'])->name('carreras.store');
+Route::get('/carreras/{id}/edit', [CarreraController::class, 'edit'])->name('carreras.edit');
+Route::put('/carreras/{id}', [CarreraController::class, 'update'])->name('carreras.update');
+Route::delete('/carreras/{id}',[CarreraController::class, 'destroy'])->name('carreras.destroy');
 //Libros
 Route::get('/libros', [LibroController::class, 'index'])->name('libros.index');
 //Alumno

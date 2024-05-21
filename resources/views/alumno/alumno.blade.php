@@ -31,8 +31,8 @@
                                 <td>{{ $alumno->direccion }}</td>
                                 <td>{{ $alumno->telefono }}</td>
                                 <td>
-                                    <a href="{{ route('alumnos.edit', $alumno->id_alumno) }}" class="btn btn-outline-warning">Actualizar</a>
-                                    <form action="{{ route('alumnos.destroy', $alumno->id_alumno) }}" method="POST" style="display:inline;">
+                                    <a href="{{ route('alumnos.edit', $alumno->id) }}" class="btn btn-outline-warning">Actualizar</a>
+                                    <form action="{{ route('alumnos.destroy', $alumno->id) }}" method="POST" style="display:inline;">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-outline-danger">Eliminar</button>

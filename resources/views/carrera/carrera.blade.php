@@ -1,3 +1,4 @@
+<!-- resources/views/carreras/index.blade.php -->
 @extends('layouts.app')
 
 @section('content')
@@ -5,15 +6,15 @@
         <div class="card">
             <div class="card-header text-white" style="background-color: #683475">
                 <h1>Carreras</h1>
-                <button class="btn btn-outline-success text-white">Agregar</button>
+                <a href="{{ route('carreras.create') }}" class="btn btn-outline-success text-white">Agregar Carrera</a>
             </div>
             <div class="card-body">
                 <table class="table">
                     <thead>
                         <tr>
                             <th>ID</th>
+                            <th>Escuela</th>
                             <th>Nombre de la Carrera</th>
-                            <th>Nombre de la Escuela</th>
                             <th>Asignaturas</th>
                             <th>Acciones</th>
                         </tr>
@@ -22,12 +23,16 @@
                         @foreach ($carreras as $carrera)
                             <tr>
                                 <td>{{ $carrera->id }}</td>
+                                <td>{{ $carrera->escuela->nombre }}</td>
                                 <td>{{ $carrera->nombre_carrera }}</td>
-                                <td>{{ $carrera->escuela->nombre ?? 'N/A' }}</td>
                                 <td>{{ $carrera->asignaturas }}</td>
                                 <td>
-                                    <button class="btn btn-outline-danger">Eliminar</button>
-                                    <button class="btn btn-outline-warning">Actualizar</button>
+                                    <a href="{{ route('carreras.edit', $carrera->id) }}" class="btn btn-outline-warning">Actualizar</a>
+                                    <form action="{{ route('carreras.destroy', $carrera->id) }}" method="POST" style="display:inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-outline-danger">Eliminar</button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach
@@ -35,6 +40,6 @@
                 </table>
             </div>
         </div>
-        {{ $carreras->links() }}
+        {{ $carreras->links() }} 
     </div>
 @endsection

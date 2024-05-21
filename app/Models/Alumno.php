@@ -7,9 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Alumno extends Model
 {
-    public function carreras()
+    protected $fillable = [
+        'carrera_id',
+        'nombres',
+        'apellidos',
+        'direccion',
+        'telefono'
+    ];
+    public function carrera()
     {
-        return $this->belongsTo(Carrera::class);
+        return $this->belongsTo(Carrera::class, 'carrera_id'); // Debes especificar el nombre del campo de la clave foránea
     }
 
     public function prestamos(){
