@@ -16,7 +16,7 @@ class Alumno extends Model
     ];
     public function carrera()
     {
-        return $this->belongsTo(Carrera::class, 'carrera_id'); // Debes especificar el nombre del campo de la clave foránea
+        return $this->belongsTo(Carrera::class, 'carrera_id'); 
     }
 
     public function prestamos(){

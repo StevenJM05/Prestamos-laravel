@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('carreras', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('escuela_id')->references('id')->on('escuelas');
+            $table->foreignId('escuela_id')->references('id')->on('escuelas')->OnDelete('cascade');
             $table->string('nombre_carrera');
             $table->integer('asignaturas');
             $table->timestamps();

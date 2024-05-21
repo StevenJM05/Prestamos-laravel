@@ -15,11 +15,11 @@ return new class extends Migration
     {
         Schema::create('prestamos', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Alumno::class);
-            $table->foreignIdFor(Libro::class);
-            $table->dateTime('fecha_prestamo');
-            $table->dateTime('fecha_devolucion');
-            $table->boolean('estado');
+            $table->foreignId('alumno_id')->constrained()->onDelete('cascade');
+            $table->foreignId('libro_id')->constrained()->onDelete('cascade');
+            $table->date('fecha_prestamo');
+            $table->date('fecha_devolucion');
+            $table->boolean('estado')->default(1); 
             $table->timestamps();
         });
     }

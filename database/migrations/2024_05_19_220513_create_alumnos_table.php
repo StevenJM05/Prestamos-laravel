@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('alumnos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('carrera_id')->references('id')->on('carreras');
+            $table->foreignId('carrera_id')->references('id')->on('carreras')->OnDelete('cascade');
             $table->string('nombres');
             $table->string('apellidos');
             $table->string('direccion');
