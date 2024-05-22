@@ -31,6 +31,7 @@ Route::post('/libros', [LibroController::class, 'store'])->name('libros.store');
 Route::get('/libros/{id}/edit', [LibroController::class, 'edit'])->name('libros.edit');
 Route::put('/libros/{id}', [LibroController::class, 'update'])->name('libros.update');
 Route::delete('/libros/{id}',[LibroController::class, 'destroy'])->name('libros.destroy');
+Route::resource('libros', LibroController::class);
 //Alumno
 Route::get('/alumnos', [AlumnoController::class, 'index'])->name('alumnos.index');
 Route::get('/alumnos/create', [AlumnoController::class, 'create'])->name('alumnos.create');

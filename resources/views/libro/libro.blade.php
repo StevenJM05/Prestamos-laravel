@@ -14,6 +14,18 @@
                         {{ session('success') }}
                     </div>
                 @endif
+                <!-- Formulario de búsqueda -->
+                <form action="{{ route('libros.index') }}" method="GET" class="mb-3">
+                    <div class="form-row">
+                        <div class="form-group col-md-3">
+                            <input type="text" name="search" class="form-control" placeholder="Buscar por título, autor, editorial o ISBN" value="{{ request('search') }}">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <button type="submit" class="btn btn-primary">Buscar</button>
+                            <a href="{{ route('libros.index') }}" class="btn btn-secondary">Limpiar Filtros</a>
+                        </div>
+                    </div>
+                </form>
                 <table class="table">
                     <thead>
                         <tr>
@@ -47,7 +59,7 @@
                         @endforeach
                     </tbody>
                 </table>
-                {{ $libros->links() }} 
+                {{ $libros->links() }}
             </div>
         </div>
     </div>

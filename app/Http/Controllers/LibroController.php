@@ -8,9 +8,19 @@ use Illuminate\Support\Facades\Log;
 
 class LibroController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $libros = Libro::paginate(10);
+        $search = $request->input('search');
+
+        $libros = Libro::query()
+            ->when($search, function ($query, $search) {
+                return $query->where('titulo', 'like', "%{$search}%")
+                             ->orWhere('autor', 'like', "%{$search}%")
+                             ->orWhere('editorial', 'like', "%{$search}%")
+                             ->orWhere('ISBN', 'like', "%{$search}%");
+            })
+            ->paginate(10);
+
         return view('libro.libro', compact('libros'));
     }
 
