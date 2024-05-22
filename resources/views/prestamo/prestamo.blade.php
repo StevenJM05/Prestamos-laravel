@@ -5,6 +5,13 @@
 <div class="container mt-5">
     <div class="card">
         <div class="card-header text-white" style="background-color: #683475">
+            @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+
             <h1>Préstamos</h1>
             <a href="{{ route('prestamos.create') }}" class="btn btn-outline-success text-white">Agregar Préstamo</a>
         </div>

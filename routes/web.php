@@ -39,6 +39,7 @@ Route::post('/alumnos', [AlumnoController::class, 'store'])->name('alumnos.store
 Route::get('/alumnos/{id}/edit', [AlumnoController::class, 'edit'])->name('alumnos.edit');
 Route::put('/alumnos/{id}', [AlumnoController::class, 'update'])->name('alumnos.update');
 Route::delete('/alumnos/{id}', [AlumnoController::class, 'destroy'])->name('alumnos.destroy');
+Route::get('/alumnos/{id}/prestamos', [AlumnoController::class, 'prestamos'])->name('alumnos.prestamos');
 
 //Prestamo
 Route::get('/prestamos', [PrestamoController::class, 'index'])->name('prestamo.index');
@@ -48,6 +49,8 @@ Route::get('/prestamos/edit/{id}', [PrestamoController::class, 'edit'])->name('p
 Route::put('/prestamos/{id}', [PrestamoController::class, 'update'])->name('prestamos.update');
 Route::put('/prestamos/{id}/estado', [PrestamoController::class, 'estado'])->name('prestamos.estado');
 Route::delete('/prestamos/{id}', [PrestamoController::class, 'destroy'])->name('prestamos.destroy');
+
+
 
 //busquedas
 Route::get('search-students', [AlumnoController::class, 'search'])->name('search-students');

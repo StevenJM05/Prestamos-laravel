@@ -5,6 +5,13 @@
     <div class="container mt-5">
         <div class="card">
             <div class="card-header text-white" style="background-color: #683475">
+                @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+
                 <h1>Libros</h1>
                 <a href="{{ route('libros.create') }}" class="btn btn-outline-success text-white">Agregar Libro</a>
             </div>
@@ -20,7 +27,7 @@
                         <div class="form-group col-md-3">
                             <input type="text" name="search" class="form-control" placeholder="Buscar por título, autor, editorial o ISBN" value="{{ request('search') }}">
                         </div>
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-md-3 mt-3">
                             <button type="submit" class="btn btn-primary">Buscar</button>
                             <a href="{{ route('libros.index') }}" class="btn btn-secondary">Limpiar Filtros</a>
                         </div>

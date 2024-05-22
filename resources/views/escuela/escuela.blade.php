@@ -7,6 +7,13 @@
             <div class="card-header text-white" style="background-color: #683475">
                 <h1>Escuelas</h1>
                 <a class="btn btn-success" href="escuelas/create">Agregar</a>
+                @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+
             </div>
             <div class="card-body">
                 <table class="table">

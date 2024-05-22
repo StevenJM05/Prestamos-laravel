@@ -79,6 +79,8 @@ class PrestamoController extends Controller
         return redirect()->route('prestamo.index')->with('success', 'Fecha de devolución actualizada exitosamente');
     }
 
+    
+
     public function estado($id)
     {
         $prestamo = Prestamo::findOrFail($id);

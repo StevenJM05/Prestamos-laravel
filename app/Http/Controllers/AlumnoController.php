@@ -71,11 +71,21 @@ class AlumnoController extends Controller
     public function search(Request $request)
     {
         $query = $request->get('q');
-        $students = Alumno::where('nombres', 'like', "%{$query}%")
+        $students = Alumno::with('carrera')->where('nombres', 'like', "%{$query}%")
             ->orWhere('apellidos', 'like', "{$query}%")
             ->take(10)
-            ->get(['id', 'nombres', 'apellidos']);  
+            ->get();  
 
         return response()->json(['data' => $students]);
     }
+
+    public function prestamos($id)
+{
+    $alumno = Alumno::findOrFail($id);
+    $prestamos = $alumno->prestamos()->paginate(10);
+    
+    return view('alumno.prestamos', compact('alumno', 'prestamos'));
+}
+
+
 }

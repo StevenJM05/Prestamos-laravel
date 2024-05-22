@@ -14,10 +14,10 @@ class LibroController extends Controller
 
         $libros = Libro::query()
             ->when($search, function ($query, $search) {
-                return $query->where('titulo', 'like', "%{$search}%")
-                             ->orWhere('autor', 'like', "%{$search}%")
-                             ->orWhere('editorial', 'like', "%{$search}%")
-                             ->orWhere('ISBN', 'like', "%{$search}%");
+                return $query->where('titulo', 'like', "{$search}%")
+                             ->orWhere('autor', 'like', "{$search}%")
+                             ->orWhere('editorial', 'like', "{$search}%")
+                             ->orWhere('ISBN', 'like', "{$search}%");
             })
             ->paginate(10);
 
